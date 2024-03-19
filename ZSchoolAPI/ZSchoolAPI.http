@@ -1,0 +1,6 @@
+@ZSchoolAPI_HostAddress = http://localhost:5285
+
+GET {{ZSchoolAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
