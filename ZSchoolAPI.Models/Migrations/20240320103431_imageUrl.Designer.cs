@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZSchoolAPI.Models;
 
@@ -11,9 +12,11 @@ using ZSchoolAPI.Models;
 namespace ZSchoolAPI.Models.Migrations
 {
     [DbContext(typeof(ZSchoolDbContext))]
-    partial class ZSchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320103431_imageUrl")]
+    partial class imageUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

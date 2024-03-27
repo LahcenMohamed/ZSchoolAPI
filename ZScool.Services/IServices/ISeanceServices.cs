@@ -9,5 +9,6 @@ namespace ZScool.Services.IServices
 {
     public interface ISeanceServices : IBaseServices<Seance>
     {
+        
     }
 }

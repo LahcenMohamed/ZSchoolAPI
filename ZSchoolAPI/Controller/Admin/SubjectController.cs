@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZSchoolAPI.Models.DTOs;
 using ZScool.Services.IServices;
@@ -7,6 +8,7 @@ namespace ZSchoolAPI.Admin
 {
     [Route("[controller]es")]
     [ApiController]
+    [Authorize(Roles ="Admin")]
     public sealed class SubjectController(ISubjectServices _subjectServices) : ControllerBase
     {
         private readonly ISubjectServices subjectServices = _subjectServices;

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZSchoolAPI.Models
+namespace ZSchoolAPI.Models.DTOs
 {
-    public sealed class Student
+    public sealed class StudentDTO
     {
-        public string Id { get; set; } 
+        public string? Id { get; set; }
         [Required]
         [MaxLength(55)]
         public string FirstName { get; set; }
@@ -26,8 +26,6 @@ namespace ZSchoolAPI.Models
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public string? ImageUrl { get; set; }
-        [ForeignKey("Classroom")]
         public string ClassroomId { get; set; }
-        public Classroom Classroom { get; set; }
     }
 }

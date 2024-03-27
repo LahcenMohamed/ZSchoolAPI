@@ -5,19 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZSchoolAPI.Models
+namespace ZSchoolAPI.Models.DTOs
 {
-    public sealed class Seance
+    public sealed class SeanceDTO
     {
-        public string Id { get; set; }
+        public string? Id { get; set; } 
         public DateOnly SeanceDate { get; set; }
         public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set;}
-        [ForeignKey("Classroom")]
+        public TimeOnly EndTime { get; set; }
         public string ClassroomId { get; set; }
-        public Classroom Classroom { get; set; }
-        [ForeignKey("Teacher")]
         public string TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
     }
 }

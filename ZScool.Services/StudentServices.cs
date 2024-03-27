@@ -35,6 +35,22 @@ namespace ZScool.Services
             return await context.Students.AsNoTracking().ToListAsync();
         }
 
+        public  async Task<IEnumerable<Student>> GetAllWithTeacherId(string Id)
+        {
+            var lst = context.Seances.AsNoTracking()
+                                     .Where(x => x.TeacherId == Id)
+                                     .Include(x => x.Classroom)
+                                     .Select(x => x.Classroom.Id)
+                                     .Distinct();
+            List<Student> students = [];
+            foreach (var item in lst) 
+            {
+                var stus = await context.Students.AsNoTracking().Where(x => x.ClassroomId == item).ToListAsync();
+                students.AddRange(stus);
+            }
+            return students;
+        }
+
         public async Task<Student> GetById(string Id)
         {
             return await context.Students.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);

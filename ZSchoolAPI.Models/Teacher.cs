@@ -27,9 +27,11 @@ namespace ZSchoolAPI.Models
         public string Address { get; set; }
         [Range(0.0,double.MaxValue)]
         public decimal Salary { get; set; }
+        public string? ImageUrl { get; set; }
         [ForeignKey("Subject")]
         public string SubjectId { get; set; }
         public Subject Subject { get; set; }
+
         public List<Seance> Seances { get; set; }
     }
 }

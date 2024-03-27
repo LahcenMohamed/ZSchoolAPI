@@ -9,5 +9,6 @@ namespace ZScool.Services.IServices
 {
     public interface IStudentServices : IBaseServices<Student>
     {
+        public Task<IEnumerable<Student>> GetAllWithTeacherId(string Id);
     }
 }

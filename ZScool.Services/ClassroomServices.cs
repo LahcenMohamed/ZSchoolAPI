@@ -40,6 +40,16 @@ namespace ZScool.Services
             return await context.Classrooms.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
         }
 
+        public async Task<IEnumerable<Classroom>> GetClassroomsWithTeacherId(string TeacherId)
+        {
+            var lst = context.Seances.AsNoTracking()
+                                     .Include(x => x.Classroom)
+                                     .Where(x => x.TeacherId == TeacherId)
+                                     .Select(x => x.Classroom)
+                                     .Distinct().AsEnumerable();
+            return lst;
+        }
+
         public async Task Update(Classroom model)
         {
             context.Classrooms.Update(model);

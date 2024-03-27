@@ -1,39 +1,32 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ZSchoolAPI.Models.DTOs;
 using ZScool.Services.IServices;
 
 namespace ZSchoolAPI.Admin
 {
-    [Route("/[controller]s")]
+    [Route("[controller]s")]
     [ApiController]
-    public sealed class ClassroomController(IClassroomServices _classroomServices) : ControllerBase
+    [Authorize(Roles = "Admin")]
+    public sealed class SeanceController(ISeanceServices _seanceServices) : ControllerBase
     {
-        private readonly IClassroomServices classroomServices = _classroomServices;
-
+        private readonly ISeanceServices seanceServices = _seanceServices;
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            var ls = await classroomServices.GetAllAsEnumerable();
+            var ls = await seanceServices.GetAllAsEnumerable();
             return Ok(ls);
         }
 
-        [HttpGet]
-        [Route("{Id:guid}")]
-        public async Task<ActionResult> Details(string Id)
-        {
-            var classRoom = await classroomServices.GetById(Id);
-            return Ok(classRoom);
-        }
-
         [HttpPost]
-        public async Task<ActionResult> Create([FromForm] ClassroomDTO classroomDTO)
+        public async Task<ActionResult> Create([FromForm] SeanceDTO seanceDTO)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await classroomServices.Add(DTOMapper.ClassroomDtoMapper(classroomDTO));
+                    await seanceServices.Add(DTOMapper.SeanceDtoMapper(seanceDTO));
                     return Created();
                 }
                 catch (Exception ex)
@@ -44,14 +37,14 @@ namespace ZSchoolAPI.Admin
             return BadRequest(ModelState.ToList());
         }
 
-        [HttpPut("Update")]
-        public async Task<ActionResult> Update([FromForm] ClassroomDTO classroomDTO)
+        [HttpPut]
+        public async Task<ActionResult> Update([FromForm] SeanceDTO seanceDTO)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await classroomServices.Update(DTOMapper.ClassroomDtoMapper(classroomDTO));
+                    await seanceServices.Update(DTOMapper.SeanceDtoMapper(seanceDTO));
                     return Ok();
                 }
                 catch (Exception ex)
@@ -67,13 +60,14 @@ namespace ZSchoolAPI.Admin
         {
             try
             {
-                await classroomServices.Delete(Id);
+                await seanceServices.Delete(Id);
                 return Ok();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest($"Could not delete {Id}");
+                return BadRequest("cannot delete");
             }
         }
+
     }
 }
